@@ -5,18 +5,24 @@ import(
 	"html/template"
 )
 
+//main webpage 
 
 func (app *application) home(w http.ResponseWriter, r *http.Request){
 	files := []string{
-		"ui/html/home.html",
+		"ui/html/pages/home.html",
+		"ui/html/templates/base.tmpl.html",
 	}
 
 	tmpl,err := template.ParseFiles(files...)
 
 	if err!=nil{
-		app.logger.Error(err.Error(), "Method", r.Method, "uri", r.URL.RequestURI())
-		http.Error(w,"Internal Server Error", http.StatusInternalServerError)
+		app.internalError(w,r,err)
+		return
 	}
 
-	tmpl.ExecuteTemplate(w, "home.html", nil)
+	err = tmpl.ExecuteTemplate(w, "base", nil)
+	if err!=nil{
+		app.internalError(w,r,err)
+		return
+	}
 }
