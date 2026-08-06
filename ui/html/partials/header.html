@@ -1,0 +1,13 @@
+
+{{define "header"}}
+    <a href="/">
+        <img src="" alt="none">
+        <h1 style="margin-top: 0px; margin-bottom:0px">HTTP Zelda</h1>
+    </a>
+    <form class="search-bar" action="/" method="GET">
+        {{/* falta agregar query value="{{.Query}}"
+         y  name="q" */}}
+        <input type="search" placeholder="Search codes (e.g. 501)...">
+        <button type="submit">Search</button>
+    </form>
+{{end}}

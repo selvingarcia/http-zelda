@@ -1,33 +1,14 @@
-body{
-    background-color: rgb(32, 185, 137);
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    margin: 0 ;
-    padding-left: 6%;
-    padding-right: 6%;
-}
-
-main{
-    flex: 1;
-    display: grid;
-}
-
-header, footer{
-    height:20vh;
-    background-color: aquamarine;
-}
-
-main .container-status{
+main .container-status {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(max(220px, (100% - 3rem) / 4), 1fr));
     gap: 2rem;
 }
 
-main .status{
+main .status {
     width: 100%;
 }
-main .status img{
+
+main .status img {
     aspect-ratio: 1/1;
     width: 100%;
 }

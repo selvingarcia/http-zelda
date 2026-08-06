@@ -1,0 +1,31 @@
+{{
+    <link rel="stylesheet" href="/static/css/status.css">
+}}
+
+{{define "title"}}
+    {{.Code}}
+    {{.Phrase}}
+{{end}}
+
+{{define "main"}}
+    <div class="status-detail">
+
+        <div class="status-detail-header">
+            <h2><span class="code">{{.Code}}</span> {{.Phrase}}</h2>
+            <img src="/static/img/{{.Code}}.jpg" alt="{{.Code}} {{.Phrase}}">
+        </div>
+
+        <div class="status-detail-body">
+            <h3>{{.Title}}</h3>
+            <p>{{.Content}}</p>
+        </div>
+
+        <div class="status-detail-meaning">
+            <h3>Meaning</h3>
+            <p>{{.Meaning}}</p>
+        </div>
+
+        <a class="back" href="/">← Back</a>
+
+    </div>
+{{end}}
