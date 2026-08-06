@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: postgres_server
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pqgo
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: httpzelda
+volumes:
+  postgres_data:
