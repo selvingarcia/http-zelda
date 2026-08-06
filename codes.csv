@@ -1,0 +1,21 @@
+code,phrase,title,content,meaning
+100,Continue,100 — Continue,"The server received the request headers and the client should proceed to send the body. Used with the Expect: 100-continue header to avoid sending large bodies for nothing.","Keep going, everything is fine so far."
+101,Switching Protocols,101 — Switching Protocols,"The client asked to switch protocols and the server agreed. This is what happens when an HTTP connection upgrades to WebSocket.",The connection is switching to a different protocol.
+102,Processing,102 — Processing,"The server received the request and is still working on it, but there is no response yet. Keeps the client from assuming the connection dropped.","Still working on this, do not hang up yet."
+200,OK,200 — OK,"The request succeeded. On a GET the body carries the requested resource; on a POST it carries the result of the action.",Everything went fine.
+201,Created,201 — Created,"A new resource was created as a result of the request. The response usually includes a Location header pointing at the new resource.",Something new was created and here is where to find it.
+204,No Content,204 — No Content,"The request succeeded but there is nothing to return in the body. Typical for a successful DELETE or a PUT that has no data to send back.","It worked, but there is nothing to show."
+301,Moved Permanently,301 — Moved Permanently,"The resource moved to a new URL for good. Clients should update their links and use the new address from now on.","This moved for good, update your link."
+302,Found,302 — Found,"The resource is temporarily at a different URL. Unlike a 301, the client should keep using the original URL in the future.","It is somewhere else, but only for now."
+304,Not Modified,304 — Not Modified,"The resource has not changed since the client last asked for it, so no body is sent. The client uses its cached copy.","Nothing changed, use what you already have."
+400,Bad Request,400 — Bad Request,"The server cannot process the request because it is malformed: invalid syntax, broken JSON, or parameters that make no sense.",The request is malformed and cannot be read.
+401,Unauthorized,401 — Unauthorized,"Authentication is missing or the credentials are invalid. The name is misleading: this is about identity, not permissions.","I do not know who you are, identify yourself first."
+403,Forbidden,403 — Forbidden,"The server understood the request and knows who you are, but you are not allowed to access this resource. Authenticating again will not help.","I know who you are, but you cannot come in."
+404,Not Found,404 — Not Found,"The server could not find the requested resource. It does not say whether it never existed or was deleted, only that there is nothing at that URL.",There is nothing here.
+418,I'm a teapot,418 — I'm a teapot,"An April Fools joke from 1998 that stuck around in the standard. The teapot refuses to brew coffee. Plenty of servers implement it for fun.","I am a teapot, I do not brew coffee."
+429,Too Many Requests,429 — Too Many Requests,"The client sent too many requests in too little time and hit the rate limit. The response usually carries a Retry-After header.","Slow down, you sent too many requests."
+500,Internal Server Error,500 — Internal Server Error,"Something broke on the server side and there is no more specific response available. This is the generic error when the code blew up.",Something broke on the server side.
+501,Not Implemented,501 — Not Implemented,"The server does not support the functionality required to fulfill the request. For example, an HTTP method it does not recognize.",This is not implemented yet.
+502,Bad Gateway,502 — Bad Gateway,"The server was acting as a proxy or gateway and got an invalid response from the upstream server. The problem is further back in the chain.",The server behind me sent back garbage.
+503,Service Unavailable,503 — Service Unavailable,"The server cannot handle the request right now: it is down for maintenance or overloaded. Usually temporary.",I am not available right now.
+504,Gateway Timeout,504 — Gateway Timeout,"The server was acting as a proxy and waited too long for a response from the upstream server without getting one. Time ran out.",The server behind me took too long to answer.
