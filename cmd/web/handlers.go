@@ -1,11 +1,15 @@
 package main
 
-import(
-	"net/http"
+import (
+	"errors"
 	"html/template"
+	"net/http"
+	"strconv"
+
+	"github.com/selvingarcia/http-zelda/internal/models"
 )
 
-//main webpage 
+//main webpage
 
 
 
@@ -31,7 +35,12 @@ func (app *application) home(w http.ResponseWriter, r *http.Request){
 }
 
 func (app *application) status(w http.ResponseWriter, r *http.Request){
-	// id := r.PathValue("codeId")
+	id,err := toIntN(r.PathValue("codeId"))
+	if err!=nil{
+		app.badRequest(w,r,err)
+		return
+	}
+
 
 	files := []string{
 		"ui/html/pages/status.html",
@@ -46,7 +55,23 @@ func (app *application) status(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	err = tmpl.ExecuteTemplate(w, "base", statuses)
+	status, err := app.db.GetStatus(id)
+
+	if err!=nil{
+		if errors.Is(err, models.NoRows){
+			app.notFound(w,r,err)
+			return
+		}else{
+			app.internalError(w,r,err)
+			return
+		}
+	}
+
+	data := StatusData{
+		Status: status,
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err!=nil{
 		app.internalError(w,r,err)
 		return
@@ -75,4 +100,12 @@ var statuses = []Status{
 	{502, "Bad Gateway"},
 	{503, "Service Unavailable"},
 	{504, "Gateway Timeout"},
+}
+
+func toIntN(n string) (int, error){
+	number , err :=strconv.Atoi(n)
+	if err!=nil{
+		return 0, err
+	}
+	return number, nil
 }
