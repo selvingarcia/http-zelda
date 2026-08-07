@@ -18,3 +18,9 @@ type StatusEndpoint struct{
 type StatusData struct{
 	Status models.Status
 }
+
+var BaseTemplate = []string{
+		"ui/html/templates/base.tmpl.html",
+		"ui/html/partials/header.html",
+		"ui/html/partials/footer.html",
+}

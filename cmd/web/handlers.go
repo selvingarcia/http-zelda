@@ -16,11 +16,11 @@ import (
 func (app *application) home(w http.ResponseWriter, r *http.Request){
 	files := []string{
 		"ui/html/pages/home.html",
-		"ui/html/templates/base.tmpl.html",
-		"ui/html/partials/header.html",
 	}
 
-	tmpl,err := template.ParseFiles(files...)
+	baseFiles := baseTemplate(BaseTemplate, files)
+
+	tmpl,err := template.ParseFiles(baseFiles...)
 
 	if err!=nil{
 		app.internalError(w,r,err)
@@ -44,11 +44,11 @@ func (app *application) status(w http.ResponseWriter, r *http.Request){
 
 	files := []string{
 		"ui/html/pages/status.html",
-		"ui/html/templates/base.tmpl.html",
-		"ui/html/partials/header.html",
 	}
 
-	tmpl,err := template.ParseFiles(files...)
+	baseFiles := baseTemplate(BaseTemplate, files)
+
+	tmpl,err := template.ParseFiles(baseFiles...)
 
 	if err!=nil{
 		app.internalError(w,r,err)
@@ -108,4 +108,11 @@ func toIntN(n string) (int, error){
 		return 0, err
 	}
 	return number, nil
+}
+
+func baseTemplate(baseArray , addArray []string) []string{
+	b:= make([]string,0, len(baseArray)+len(addArray))
+	b = append(b, baseArray...)
+	b = append(b, addArray...)
+	return b
 }
