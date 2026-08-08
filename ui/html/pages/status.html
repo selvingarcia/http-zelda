@@ -1,8 +1,8 @@
-{{define "styles"}}
+{{define "css"}}
     <link rel="stylesheet" href="/static/css/status.css">
 {{end}}
 
-{{define "title"}}{{.Status.Code}} {{.Status.Phrase}}{{end}}
+{{define "title"}}{{.Status.Code}} {{.Status.Phrase}} - HTTPZelda{{end}}
 
 {{define "main"}}
     <div class="status-detail">
@@ -12,17 +12,19 @@
             <img src="/static/img/{{.Status.Code}}.jpg" alt="{{.Status.Code}} {{.Status.Phrase}}">
         </div>
 
-        <div class="status-detail-body">
-            <h3>{{.Status.Title}}</h3>
-            <p>{{.Status.Content}}</p>
-        </div>
+        <div class="content-status">
+            <div class="status-detail-body">
+                 <h3>{{.Status.Title}}</h3>
+                <p>{{.Status.Content}}</p>
+             </div>
 
-        <div class="status-detail-meaning">
-            <h3>Meaning</h3>
-            <p>{{.Status.Meaning}}</p>
-        </div>
+            <div class="status-detail-meaning">
+                <h3>Meaning</h3>
+                <p>{{.Status.Meaning}}</p>
+            </div>
 
-        <a class="back" href="/">← Back</a>
+            <a class="back" href="/">← Back</a>
+        </div>
 
     </div>
 {{end}}

@@ -1,0 +1,25 @@
+.status-detail-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-detail-header>img{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+
+}
+
+.status-detail-header>h2{
+    font-weight: bold;
+}
+
+.content-status{
+
+}
+
+.status-detail{
+    width: 50%;
+    margin: auto;
+}

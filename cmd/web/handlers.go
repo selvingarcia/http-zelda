@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -77,6 +78,45 @@ func (app *application) status(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
+}
+
+func (app *application) search(w http.ResponseWriter, r *http.Request){
+	query := r.URL.Query().Get("q")
+	v,err := toIntN(query)
+	if err!=nil{
+		http.Redirect(w,r,"/not-found",http.StatusSeeOther)
+		return
+	}
+	for _,n := range(statuses){
+		if n.Code == v{
+			f := fmt.Sprintf("/status/%d", v)
+			http.Redirect(w,r,f,http.StatusSeeOther)
+			return
+		}
+	}
+
+	http.Redirect(w, r, "/not-found", http.StatusSeeOther)
+}
+
+func (app *application) notFoundSearch(w http.ResponseWriter, r *http.Request){
+		files := []string{
+		"ui/html/pages/not-found.html",
+	}
+
+	baseFiles := baseTemplate(BaseTemplate, files)
+
+	tmpl,err := template.ParseFiles(baseFiles...)
+
+	if err!=nil{
+		app.internalError(w,r,err)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", baseFiles)
+	if err!=nil{
+		app.internalError(w,r,err)
+		return
+	}
 }
 
 var statuses = []Status{
