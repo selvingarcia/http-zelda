@@ -1,12 +1,36 @@
+:root {
+  --bg:        #1a1f16;  /* fondo, verde bosque nocturno */
+  --surface:   #242b1f;  /* cards */
+  --parchment: #e8dcc0;  /* texto principal */
+  --muted:     #9a9478;  /* texto secundario */
+  --gold:      #d4af37;  /* acentos, links, hover */
+  --border:    #3d4634;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: rgb(32, 185, 137);
+    background-color: var(--bg);
+    color: var(--parchment);
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     margin: 0;
     padding-left: 6%;
     padding-right: 6%;
-  font-family: "Average Sans", sans-serif;
+    font-family: "Average Sans", sans-serif;
+}
+
+a {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--parchment);
+    text-decoration: underline;
 }
 
 main {
@@ -16,7 +40,9 @@ main {
 
 header, footer {
     height: 20vh;
-    background-color: aquamarine;
+    background-color: var(--surface);
+    color: var(--muted);
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -28,18 +54,24 @@ header {
     flex-direction: column;
     gap: 2rem;
     box-sizing: border-box;
+    border-bottom: 1px solid var(--border);
 }
 
 header > a {
     margin-top: 10px;
-    background-color: antiquewhite;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: var(--parchment);
+}
+
+header > a > h1 {
+    color: var(--parchment);
 }
 
 .search-bar {
-    background-color: blueviolet;
+    border-radius: 6px;
     display: flex;
     width: 100%;
     max-width: 850px;
@@ -47,6 +79,7 @@ header > a {
     margin-bottom: 28px;
     height: 35px;
     gap: 8px;
+    padding: 3px;
 }
 
 .search-bar > input {
@@ -54,10 +87,82 @@ header > a {
     min-width: 0;
     border-radius: 4px;
     border-style: none;
+    background-color: var(--bg);
+    color: var(--parchment);
+    padding: 0 10px;
+}
+
+.search-bar > input::placeholder {
+    color: var(--muted);
+}
+
+.search-bar > input:focus {
+    outline: 2px solid var(--gold);
 }
 
 .search-bar > button {
     width: 80px;
     border-radius: 4px;
     border-style: none;
+    background-color: var(--gold);
+    color: var(--bg);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-bar > button:hover {
+    background-color: var(--parchment);
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+footer a {
+    color: var(--muted);
+}
+
+
+.status,
+.status-detail {
+    background-color: var(--surface);
+    border-radius: 8px;
+}
+
+.status {
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.2s ease;
+}
+
+.status:hover {
+    border-color: var(--gold);
+}
+
+.status img {
+    border-radius: 6px;
+}
+
+.status-info p:first-child {
+    color: var(--accent, var(--gold));
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}
+
+.status-info p:last-child {
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.code {
+    color: var(--accent, var(--gold));
+    font-weight: bold;
+}
+
+.back {
+    color: var(--gold);
 }

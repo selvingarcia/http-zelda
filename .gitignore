@@ -30,8 +30,8 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
-.envrc
 /tmp
 tmp
 tmp/
+
 .envrc
