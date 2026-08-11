@@ -1,0 +1,4 @@
+tmp/
+.git/
+.envrc
+*.log

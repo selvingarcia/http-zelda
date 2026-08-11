@@ -20,7 +20,7 @@ type StatusData struct{
 }
 
 var BaseTemplate = []string{
-		"ui/html/templates/base.tmpl.html",
-		"ui/html/partials/header.html",
-		"ui/html/partials/footer.html",
+		"html/templates/base.tmpl.html",
+		"html/partials/header.html",
+		"html/partials/footer.html",
 }
