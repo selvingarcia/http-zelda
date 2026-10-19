@@ -30,16 +30,15 @@ func toInt(v string) int{
 }
 
 func GetTime(name, defaults string) time.Duration{
-	value, ok := os.LookupEnv("name")
+	value, ok := os.LookupEnv(name)
 	if !ok{
-		timeout, err := toTime(value)
-		if err!=nil{
-			return time.Second * 5
-		}
-		return timeout
+		value = defaults
 	}
-	v, _ :=toTime(defaults)
-	return v
+	timeout, err := toTime(value)
+	if err!=nil{
+		return time.Second * 5
+	}
+	return timeout
 }
 
 func toTime(value string) (time.Duration, error){

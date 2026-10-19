@@ -1,14 +1,37 @@
 services:
+  web:
+    build: .
+    container_name: http_zelda
+    ports:
+      - "8080:8080"
+    environment:
+      ADDR: ${ADDR}
+      DB_HOST: ${DOCKER_DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_SSLMODE: ${DB_SSLMODE}
+      DB_CONNECT_TIMEOUT: ${DB_CONNECT_TIMEOUT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres:16.3
     container_name: postgres_server
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     environment:
-      POSTGRES_USER: pqgo
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: httpzelda
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
 volumes:
   postgres_data:
