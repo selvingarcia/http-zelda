@@ -22,6 +22,9 @@ services:
     container_name: postgres_server
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./cmd/migrate/000001_status.up.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro,z
+      - ./scripts/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro,z
+      - ./codes.csv:/seed/codes.csv:ro,z
     ports:
       - "${DB_PORT}:5432"
     environment:
@@ -29,7 +32,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U ${DB_USER} -d ${DB_NAME}"]
       interval: 2s
       timeout: 5s
       retries: 10
