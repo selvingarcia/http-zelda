@@ -68,6 +68,13 @@ header > a {
 
 header > a > h1 {
     color: var(--parchment);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.header-logo {
+    width: 35px;
+    height: 35px;
 }
 
 .search-bar {

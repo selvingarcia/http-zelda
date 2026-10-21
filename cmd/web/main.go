@@ -5,11 +5,9 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/lib/pq"
-	_ "github.com/lib/pq"
 	"github.com/selvingarcia/http-zelda/internal/env"
 	"github.com/selvingarcia/http-zelda/internal/models"
 )
@@ -33,15 +31,21 @@ func main(){
 		logger.Error(err.Error())
 		os.Exit(1)
 	}
+	defer pool.Close()
+
+	addr := env.GetString("ADDR", ":8080")
+	// Web Port 
+	if p := os.Getenv("PORT"); p != "" {
+		addr = ":" + p
+	}
 	//struct application
 
 	app:= application{
 		logger: logger,
-		addr: env.GetString("ADRR", ":8080"),
+		addr: addr,
 		db: &models.StatusModel{DB:pool},
 	}
 
-	defer pool.Close()
 	logger.Info("Database connection succesfull on ", "addr", env.GetString("DB_PORT", ""))
 
 	//logger starting information on server and db status
@@ -63,19 +67,27 @@ func main(){
 	os.Exit(1)
 }
 
-// eliminate static path 
-func neuter(file http.Handler) http.Handler{
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.HasSuffix(r.URL.Path, "/"){
-			http.NotFound(w,r)
-			return
-		}
 
-		file.ServeHTTP(w,r)
-	})
-}
 
 func openDB()(*sql.DB, error){
+
+	if url := os.Getenv("DATABASE_URL"); url != "" {
+	db, err := sql.Open("postgres", url)
+	if err != nil {
+		return nil, err
+	}
+
+	db.SetMaxOpenConns(env.GetInt("DB_MAX_OPEN_CONNS", "30"))
+	db.SetMaxIdleConns(env.GetInt("DB_MAX_IDLE_CONNS", "30"))
+	db.SetConnMaxIdleTime(env.GetTime("DB_MAX_IDLE_TIME", "15m"))
+
+	if err := db.Ping(); err != nil {
+		db.Close()
+		return nil, err
+	}
+	return db, nil
+	}
+
 	cfg:= pq.Config{
 		Host:           env.GetString("DB_HOST", "localhost"),
 		Port:           uint16(env.GetInt("DB_PORT", "5432")),
@@ -93,6 +105,10 @@ func openDB()(*sql.DB, error){
 	}
 	
 	db:= sql.OpenDB(c)
+
+	db.SetMaxOpenConns(env.GetInt("DB_MAX_OPEN_CONNS", "30"))
+	db.SetMaxIdleConns(env.GetInt("DB_MAX_IDLE_CONNS", "30"))
+	db.SetConnMaxIdleTime(env.GetTime("DB_MAX_IDLE_TIME", "15m"))
 
 	err = db.Ping()
 	if err != nil {

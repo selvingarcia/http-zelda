@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/selvingarcia/http-zelda/internal/models"
+	"github.com/selvingarcia/http-zelda/ui"
 )
 
 //main webpage
@@ -16,12 +17,12 @@ import (
 
 func (app *application) home(w http.ResponseWriter, r *http.Request){
 	files := []string{
-		"ui/html/pages/home.html",
+		"html/pages/home.html",
 	}
 
 	baseFiles := baseTemplate(BaseTemplate, files)
 
-	tmpl,err := template.ParseFiles(baseFiles...)
+	tmpl,err := template.ParseFS(ui.Files,baseFiles...)
 
 	if err!=nil{
 		app.internalError(w,r,err)
@@ -44,12 +45,12 @@ func (app *application) status(w http.ResponseWriter, r *http.Request){
 
 
 	files := []string{
-		"ui/html/pages/status.html",
+		"html/pages/status.html",
 	}
 
 	baseFiles := baseTemplate(BaseTemplate, files)
 
-	tmpl,err := template.ParseFiles(baseFiles...)
+	tmpl,err := template.ParseFS(ui.Files,baseFiles...)
 
 	if err!=nil{
 		app.internalError(w,r,err)
@@ -100,12 +101,12 @@ func (app *application) search(w http.ResponseWriter, r *http.Request){
 
 func (app *application) notFoundSearch(w http.ResponseWriter, r *http.Request){
 		files := []string{
-		"ui/html/pages/not-found.html",
+		"html/pages/not-found.html",
 	}
 
 	baseFiles := baseTemplate(BaseTemplate, files)
 
-	tmpl,err := template.ParseFiles(baseFiles...)
+	tmpl,err := template.ParseFS(ui.Files,baseFiles...)
 
 	if err!=nil{
 		app.internalError(w,r,err)
