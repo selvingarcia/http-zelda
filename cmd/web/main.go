@@ -33,6 +33,11 @@ func main(){
 	}
 	defer pool.Close()
 
+	if err := initSchema(pool, env.GetString("CODES_CSV", "codes.csv")); err != nil {
+		logger.Error(err.Error())
+		os.Exit(1)
+	}
+
 	addr := env.GetString("ADDR", ":8080")
 	// Web Port 
 	if p := os.Getenv("PORT"); p != "" {

@@ -12,5 +12,6 @@ RUN apk add --no-cache ca-certificates
 WORKDIR /app
 COPY --from=build /bin/web /bin/web
 COPY ui ./ui
+COPY codes.csv ./codes.csv
 EXPOSE 8080
 ENTRYPOINT ["/bin/web"]
