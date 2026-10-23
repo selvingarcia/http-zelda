@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ui/static/img/title.jpg" alt="HTTP Zelda" width="600">
+  <img src="ui/static/img/title.jpg" alt="HTTP Zelda" width="250">
 </p>
 
 <h1 align="center">HTTP Zelda</h1>
@@ -7,9 +7,9 @@
 <p align="center">
   HTTP status codes
 </p>
-
----
-
+<p align="center">
+  <a href="https://http-zelda-production-ae1a.up.railway.app/">Live demo</a>
+</p>
 
 ## Built with
 
